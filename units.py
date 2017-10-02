@@ -1,6 +1,6 @@
 import pygame
 MOVE_SPEED = 7
-WIDTH = 240
+WIDTH = 120
 HEIGHT = 20
 COLOR =  "#888888"
 def saveStatusValue(value):
@@ -61,28 +61,6 @@ class Ball(pygame.sprite.Sprite):
         self.hit_hero=False
         self.hero_status=self.hit_hero
     def update(self,endBottom,endTop):
-        # if self.status_hit==False:
-        #     self.yvel =savePlusValue(self.yvel)   
-        # if self.status_hit==True:
-        #     self.yvel =saveStatusValue(self.yvel)
-        
-        # if self.rect.y<=0:
-        #     self.status_hit=False
-        #     self.score[0]+=1
-        # elif self.rect.y+self.BALLHEIGHT>=endTop:
-        #     self.score[1]+=1
-        #     self.status_hit=True
-
-        # if self.rect.x<=0:
-        #     self.xvel =savePlusValue(self.xvel)
-        # elif self.rect.x+self.BALLWIDTH>=endBottom:
-        #     self.xvel =saveStatusValue(self.xvel)
-        # else:
-        #     self.xvel =self.xvel
-
-        # self.rect.x += self.xvel # переносим свои положение на xvel 
-        # self.rect.y += self.yvel
-
         if self.hit_hero!=self.hero_status:
             self.move+=1
             if self.status_hit==False:
@@ -158,7 +136,7 @@ class Enemy(pygame.sprite.Sprite):
 
         self.move=0
         self.speed=5
-    def update(self,ballX):
+    def update(self,ballX,endright):
 
         if self.rect.x+(self.ENEMYWIDTH/2)<=ballX:
             self.xvel =self.speed
@@ -168,7 +146,15 @@ class Enemy(pygame.sprite.Sprite):
         if self.move%1==0:
             self.rect.x +=self.move
             self.move=0
+
+        if self.rect.x<=0 and self.xvel<=0:
+            self.xvel=0
+        elif self.rect.x>= endright and self.xvel>=0:
+            self.xvel=0
+            
+
         self.rect.x += self.xvel # переносим свои положение на xvel
+
    
     def draw(self, screen): # Выводим себя на экран
         screen.blit(self.image, (self.rect.x,self.rect.y))

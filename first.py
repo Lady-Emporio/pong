@@ -54,7 +54,7 @@ while 1: # Основной цикл программы
 	hero.draw(screen.screen) # отображение
 	ball.update(screen.WIDTH,screen.HEIGHT) # передвижение
 	ball.draw(screen.screen)# отображение
-	he.update(ball.rect.x) # передвижение
+	he.update(ball.rect.x,screen.WIDTH) # передвижение
 	he.draw(screen.screen)# отображение
 
 
